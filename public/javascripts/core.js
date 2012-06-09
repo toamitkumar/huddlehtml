@@ -21,7 +21,7 @@ function getRandomImagePath(startNum, endNum) {
 		generatedNumbers.push(number);	
 	}
 
-	return "images/"+number+".jpg";
+	return "/images/"+number+".jpg";
 }
 
 function getImageNumbers() {
