@@ -45,7 +45,7 @@ function incrementCounter(imageId) {
 		scoreCard[imageId] = 1;
 	}
 	else {
-		scoreCard[imageId] = scoreCard[imageId]++;
+		scoreCard[imageId] = scoreCard[imageId] + 1;
 	}
 }
 
@@ -54,6 +54,6 @@ function decrementCounter(imageId) {
 		scoreCard[imageId] = -1;
 	}
 	else {
-		scoreCard[imageId] = scoreCard[imageId]--;
+		scoreCard[imageId] = scoreCard[imageId] - 1;
 	}
 }
