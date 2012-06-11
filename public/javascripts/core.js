@@ -5,14 +5,14 @@ function getRandomImageId(startNum, endNum) {
 }
 
 function getRandomImagePath(startNum, endNum) {
-	number = getRandomImageId(10, 19);
+	number = getRandomImageId(startNum, endNum);
 
 	if(generatedNumbers.length == 0) {
 		generatedNumbers.push(number);
 	}
 	else if(generatedNumbers.length == 1) {
 		while(number == generatedNumbers[0]) {
-			number = getRandomImageId(10, 19);		
+			number = getRandomImageId(startNum, endNum);		
 		}
 		generatedNumbers.push(number);
 	}
