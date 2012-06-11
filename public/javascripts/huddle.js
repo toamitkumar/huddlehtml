@@ -30,7 +30,9 @@ function showRandomImages() {
 
 function trackImageScore(object) {
 	imageIds = getImageNumbers();
-	clickedImageId = $(object).attr("src").split(".")[1];
+	splitArr = $(object).attr("src").split("/")
+	clickedImageName = splitArr[splitArr.length-1];
+	clickedImageId = clickedImageName.split(".")[0];
 
 	incrementCounter(clickedImageId);
 	for (var i = 0; i < imageIds.length; i++) {
