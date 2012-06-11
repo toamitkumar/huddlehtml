@@ -1,5 +1,6 @@
 var roundNum = 1;
 var scoreCard = {};
+var output = {};
 
 $(document).ready(function() {
 	showRandomImages();
@@ -12,7 +13,7 @@ $(document).ready(function() {
 		}
 		else {
 			trackImageScore(this);
-			$(".container").html("Result Page");
+			$(".container").html(constructResultsPage());
 		}
 	});
 });
@@ -56,4 +57,35 @@ function decrementCounter(imageId) {
 	else {
 		scoreCard[imageId] = scoreCard[imageId] - 1;
 	}
+}
+
+function constructResultsPage() {
+	generateOutput();
+	str = '<div class="span8 offset2">';
+	for(var key in output) {
+		images = output[key];
+		str += '<ul class="thumbnails">';
+		str += '<li>'+key+'</li>';
+		for(var i=0; i<images.length; i++) {
+			str += '<li>';
+			str += '<img src="'+images[i]+'" height="160" width="160" class="themeImage"/>';
+			str += '</li>';
+		}
+		str += '</ul>';
+	}
+	str += "</div>";
+	return str;
+}
+
+function generateOutput() {
+	for(var imageId in scoreCard) {
+		scoreCount = scoreCard[imageId].toString();
+		if(output[scoreCount] === undefined) {
+			output[scoreCount] = []
+			output[scoreCount].push(getImagePath(imageId));	
+		}
+		else {
+			output[scoreCount].push(getImagePath(imageId));	
+		}
+	}	
 }
