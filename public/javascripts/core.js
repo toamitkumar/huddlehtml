@@ -29,5 +29,5 @@ function getImageNumbers() {
 }
 
 function getImagePath(imageNum) {
-	return "/images/"+imageNum+".jpg";	
+	return "images/"+imageNum+".jpg";	
 }

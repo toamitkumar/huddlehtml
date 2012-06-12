@@ -1,6 +1,5 @@
 var roundNum = 1;
 var scoreCard = {};
-var output = {};
 
 $(document).ready(function() {
 	showRandomImages();
@@ -61,10 +60,10 @@ function decrementCounter(imageId) {
 }
 
 function constructResultsPage() {
-	generateOutput();
+	var result = sortOutputData(generateOutput());
 	str = '<div class="span8 offset2">';
-	for(var key in output) {
-		images = output[key];
+	for(var key in result) {
+		images = result[key];
 		str += '<ul class="thumbnails">';
 		str += '<li>'+key+'</li>';
 		for(var i=0; i<images.length; i++) {
@@ -78,7 +77,26 @@ function constructResultsPage() {
 	return str;
 }
 
+function sortOutputData(object) {
+	var sorted = {},
+	key, keys = [];
+
+	for (key in object) {
+		if (object.hasOwnProperty(key)) {
+			keys.push(key);
+		}
+	}
+
+	keys.sort();
+
+	for (key = 0; key < keys.length; key++) {
+		sorted[keys[key]] = object[keys[key]];
+	}
+	return sorted;
+}
+
 function generateOutput() {
+	var output = {};
 	for(var imageId in scoreCard) {
 		scoreCount = scoreCard[imageId].toString();
 		if(output[scoreCount] === undefined) {
@@ -89,4 +107,5 @@ function generateOutput() {
 			output[scoreCount].push(getImagePath(imageId));	
 		}
 	}	
+	return output;
 }
