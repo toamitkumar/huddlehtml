@@ -68,7 +68,7 @@ function constructResultsPage() {
 		str += '<li>'+key+'</li>';
 		for(var i=0; i<images.length; i++) {
 			str += '<li>';
-			str += '<img src="'+images[i]+'" height="160" width="160" class="thumbnail"/>';
+			str += '<img src="'+images[i]+'" height="100" width="100" class="thumbnail"/>';
 			str += '</li>';
 		}
 		str += '</ul>';
