@@ -28,7 +28,7 @@ function showRandomImages() {
 }
 
 function trackImageScore(object) {
-	imageIds = getImageNumbers();
+	imageIds = getImageNumbersOnPage();
 	splitArr = $(object).attr("src").split("/")
 	clickedImageName = splitArr[splitArr.length-1];
 	clickedImageId = clickedImageName.split(".")[0];
@@ -60,7 +60,7 @@ function decrementCounter(imageId) {
 }
 
 function constructResultsPage() {
-	var result = sortOutputData(generateOutput());
+	var result = generateOutput();
 	str = '<div class="span8 offset2">';
 	for(var key in result) {
 		images = result[key];
@@ -68,7 +68,7 @@ function constructResultsPage() {
 		str += '<li>'+key+'</li>';
 		for(var i=0; i<images.length; i++) {
 			str += '<li>';
-			str += '<img src="'+images[i]+'" height="160" width="160" class="themeImage"/>';
+			str += '<img src="'+images[i]+'" height="160" width="160" class="thumbnail"/>';
 			str += '</li>';
 		}
 		str += '</ul>';
@@ -77,26 +77,14 @@ function constructResultsPage() {
 	return str;
 }
 
-function sortOutputData(object) {
-	var sorted = {},
-	key, keys = [];
-
-	for (key in object) {
-		if (object.hasOwnProperty(key)) {
-			keys.push(key);
-		}
-	}
-
-	keys.sort();
-
-	for (key = 0; key < keys.length; key++) {
-		sorted[keys[key]] = object[keys[key]];
-	}
-	return sorted;
-}
-
 function generateOutput() {
-	var output = {};
+	var output = {},
+	keys;
+	
+	// get the sorted output by key
+	scoreCard = sortObjectOnKeys(scoreCard);
+	
+	// all image path for images that were used
 	for(var imageId in scoreCard) {
 		scoreCount = scoreCard[imageId].toString();
 		if(output[scoreCount] === undefined) {
@@ -106,6 +94,15 @@ function generateOutput() {
 		else {
 			output[scoreCount].push(getImagePath(imageId));	
 		}
-	}	
+	}
+
+	// all image path for images that were not used
+	deltaKeys = diffArrays([10,11,12,13,14,15,16,17,18,19], allKeys(scoreCard));
+	console.log(deltaKeys);
+	output['n/a'] = [];
+	for(var i=0; i<deltaKeys.length; i++) {
+		output['n/a'].push(getImagePath(deltaKeys[i]));	
+	}
+
 	return output;
 }
